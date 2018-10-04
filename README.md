@@ -8,7 +8,7 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
 
  - You want a password generator which runs on the command line
  - You want a password generator with no dependencies (e.g. gcrypt, openssl)
- - You want the password generator to have a small amount of code, so you can read and understand it easily
+ - You want a password generator with a small amount of code, so you can read and understand it easily
  - You want a program which fails loudly at the first sign of trouble
  - You trust your kernel's random source, but only when it has been seeded properly
 
@@ -16,6 +16,7 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
 
  - You want your passwords to be "pronounceable" or "memorable"
  - You want a password generator with a GUI
+ - You have an old kernel or C library without the `getrandom` call in it
 
 ## Getting started
 
