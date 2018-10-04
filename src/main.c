@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
   }
 
   // Happy path: print the password!
-  result = printf("%s\n", wrap_printable(buf, password_length));
+  result = printf("%s", wrap_printable(buf, password_length));
   if (result < 0) {
     // There was an output error, no sense trying to print an error message
     retval = 1;
