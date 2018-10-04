@@ -5,6 +5,21 @@
 #include <sys/mman.h>
 #include <sys/random.h>
 
+/**
+ * Wraps bytes in a buffer to be printable ASCII
+ * This is probably bad, needs review
+ */
+static void wrap_readable(void *buf, int len) {
+  char *data = (char *)buf;
+  for (int i = 0; i < len; i++) {
+    data[i] = abs(data[i]);
+    if (data[i] == -128) {
+      data[i] = 127;
+    }
+    data[i] = (data[i] % (0x7E - 0x21 + 1)) + 0x21;
+  }
+}
+
 int main(void) {
   void *buf = NULL;
   int result = -1, retval = 0;
@@ -30,26 +45,17 @@ int main(void) {
     goto cleanup;
   }
 
-  // Show the empty buffer
-  result = printf("%.*s\n", password_length, buf);
-  if (result < 0) {
-    // Output error, no sense trying to print an error message
-    retval = 1;
-    goto cleanup;
-  }
-
   // Get random data
   bytes_read = getrandom(buf, password_length, GRND_RANDOM);
-  if (bytes_read == -1) {
+  if (bytes_read == -1 || bytes_read < password_length) {
     fprintf(stderr, "Failed to read from random source: %s\n", strerror(errno));
     retval = 1;
     goto cleanup;
   }
 
   // Happy path: print the password!
-  // TODO(tom): Convert random nonsense into password. Use wrapping, not
-  // clamping.
-  result = printf("%.*s\n", password_length, buf);
+  wrap_readable(buf, password_length);
+  result = printf("%s\n", buf);
   if (result < 0) {
     // Output error, no sense trying to print an error message
     retval = 1;

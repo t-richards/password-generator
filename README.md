@@ -30,5 +30,7 @@ $ ./password-generator
 
  - [x] Secure random data generation
  - [x] Memory page locking
- - [ ] ASCII character output
+ - [x] ASCII character output
  - [ ] Command-line flags
+ - [ ] Multiple password generation
+ - [ ] Security review
