@@ -12,6 +12,7 @@
  */
 static char *wrap_printable(void *buf, int len) {
   char *data = (char *)buf;
+
   for (int i = 0; i < len; i++) {
     // Clamp to signed char
     if (data[i] < CHAR_MIN) {
