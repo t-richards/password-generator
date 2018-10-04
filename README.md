@@ -29,6 +29,16 @@ $ make
 $ ./password-generator
 ```
 
+### With Docker
+
+```bash
+# Build Image
+docker build -t password-generator .
+
+# Run program
+docker run --rm -ti password-generator
+```
+
 ## Roadmap
 
  - [x] Draw random bytes from the system `random` source (blocking)
