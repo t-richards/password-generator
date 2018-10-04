@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: trichards/password-generator
+    steps:
+      - checkout
+      - run:
+          name: Compile application
+          command: make dist
+      - store_artifacts:
+          path: password-generator
+          destination: password-generator

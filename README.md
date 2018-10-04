@@ -8,7 +8,7 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
  - You want a password generator with no dependencies (e.g. gcrypt, openssl)
  - You want the password generator to have a small amount of code, so you can read and understand it easily
  - You trust your kernel's blocking random source
- - You are willing to WAIT A DANG SECOND for your password to be generated
+ - You are willing to WAIT A DANG SECOND for a single password to be generated
 
 ## How to know if this password generator is *NOT* for you
 
@@ -28,7 +28,7 @@ $ ./password-generator
 
 ## Roadmap
 
- - [x] Draw random bytes from the system <u>`random`</u> source (blocking)
+ - [x] Draw random bytes from the system `random` source (blocking)
  - [x] Memory page locking
  - [x] ASCII character output
  - [ ] Command-line flags

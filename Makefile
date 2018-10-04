@@ -1,6 +1,10 @@
 .PHONY: all
 all: password-generator
 
+.PHONY: dist
+dist: password-generator
+	strip password-generator
+
 .PHONY: clean
 clean:
 	rm -f password-generator
