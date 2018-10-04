@@ -1,5 +1,7 @@
 # password-generator
 
+[![CircleCI](https://circleci.com/gh/t-richards/password-generator.svg?style=svg)](https://circleci.com/gh/t-richards/password-generator)
+
 A secure, sane-defaults password generator for Unix and GNU/Linux.
 
 ## How to know if this password generator is for you
