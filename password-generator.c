@@ -28,13 +28,15 @@ static char *wrap_printable(void *buf, int len) {
   return data;
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
   void *buf = NULL;
   int result = -1, retval = 0;
   ssize_t bytes_read = 0;
-
-  // TODO(tom): Allow this to be configured on the command line
   int password_length = 32;
+
+  if (argc >= 2) {
+    password_length = atoi(argv[1]);
+  }
 
   // Allocate memory
   buf = calloc(1, password_length);
