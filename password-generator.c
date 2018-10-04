@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,15 +13,15 @@
 static void wrap_readable(void *buf, int len) {
   char *data = (char *)buf;
   for (int i = 0; i < len; i++) {
-    // Ensure the value is positive
-    if (data[i] == 0x80) {
-      data[i] = 0x7F;
-    } else if (data[i] < 0) {
-      data[i] = abs(data[i]);
+    // Clamp to signed char
+    if (data[i] < CHAR_MIN) {
+      data[i] = CHAR_MIN;
+    } else if (data[i] > CHAR_MAX) {
+      data[i] = CHAR_MAX;
     }
 
     // Wrap the value around the '!' to '~' range
-    data[i] = (data[i] % (0x7E - 0x21 + 1)) + 0x21;
+    data[i] = (abs(data[i]) % (0x7E - 0x21 + 1)) + 0x21;
   }
 }
 
