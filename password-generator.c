@@ -7,10 +7,10 @@
 #include <sys/random.h>
 
 /**
- * Wraps bytes in a buffer to be printable ASCII
+ * Converts the bytes in buf to be printable ASCII characters
  * This is probably bad, needs review and tests
  */
-static void wrap_readable(void *buf, int len) {
+static char *wrap_printable(void *buf, int len) {
   char *data = (char *)buf;
   for (int i = 0; i < len; i++) {
     // Clamp to signed char
@@ -23,6 +23,8 @@ static void wrap_readable(void *buf, int len) {
     // Wrap the value around the '!' to '~' range
     data[i] = (abs(data[i]) % (0x7E - 0x21 + 1)) + 0x21;
   }
+
+  return data;
 }
 
 int main(void) {
@@ -59,8 +61,7 @@ int main(void) {
   }
 
   // Happy path: print the password!
-  wrap_readable(buf, password_length);
-  result = printf("%s\n", (char *)buf);
+  result = printf("%s\n", wrap_printable(buf, password_length));
   if (result < 0) {
     // Output error, no sense trying to print an error message
     retval = 1;
