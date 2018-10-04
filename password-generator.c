@@ -7,7 +7,7 @@
 
 /**
  * Wraps bytes in a buffer to be printable ASCII
- * This is probably bad, needs review
+ * This is probably bad, needs review and tests
  */
 static void wrap_readable(void *buf, int len) {
   char *data = (char *)buf;
