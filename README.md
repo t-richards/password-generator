@@ -28,7 +28,7 @@ $ ./password-generator
 
 ## Roadmap
 
- - [x] Secure random data generation
+ - [x] Draw random bytes from the system <u>`random`</u> source (blocking)
  - [x] Memory page locking
  - [x] ASCII character output
  - [ ] Command-line flags
