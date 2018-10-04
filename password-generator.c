@@ -12,10 +12,14 @@
 static void wrap_readable(void *buf, int len) {
   char *data = (char *)buf;
   for (int i = 0; i < len; i++) {
-    data[i] = abs(data[i]);
-    if (data[i] == -128) {
-      data[i] = 127;
+    // Ensure the value is positive
+    if (data[i] == 0x80) {
+      data[i] = 0x7F;
+    } else if (data[i] < 0) {
+      data[i] = abs(data[i]);
     }
+
+    // Wrap the value around the '!' to '~' range
     data[i] = (data[i] % (0x7E - 0x21 + 1)) + 0x21;
   }
 }

@@ -11,6 +11,7 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
  - You want the password generator to have a small amount of code, so you can read and understand it easily
  - You trust your kernel's blocking random source
  - You are willing to WAIT A DANG SECOND for a single password to be generated
+ - You want a program which fails loudly at the first sign of trouble
 
 ## How to know if this password generator is *NOT* for you
 
