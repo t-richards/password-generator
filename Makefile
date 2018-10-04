@@ -14,4 +14,4 @@ lint:
 	clang-format -i password-generator.c
 
 password-generator: password-generator.c
-	$(CC) -g -o password-generator password-generator.c
+	$(CC) $(CFLAGS) -Wall -g -o password-generator password-generator.c

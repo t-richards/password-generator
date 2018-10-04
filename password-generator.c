@@ -60,7 +60,7 @@ int main(void) {
 
   // Happy path: print the password!
   wrap_readable(buf, password_length);
-  result = printf("%s\n", buf);
+  result = printf("%s\n", (char *)buf);
   if (result < 0) {
     // Output error, no sense trying to print an error message
     retval = 1;
