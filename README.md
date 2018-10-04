@@ -47,7 +47,7 @@ docker run --rm -it trichards/password-generator
  - [x] Lock memory pages from swapping
  - [x] Explicitly wipe data from memory
  - [x] Produce ASCII character output
- - [-] Implement a small number of command-line arguments (flags?)
+ - [ ] Implement a small number of command-line arguments (flags?)
    - [x] Password length
    - [ ] Number of passwords?
    - [ ] Others?
