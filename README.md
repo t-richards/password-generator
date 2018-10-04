@@ -24,11 +24,11 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
 # Build program
 make
 
-# Generate a 32-character ASCII password
+# Generate a 64-character ASCII password
 ./password-generator
 
 # Specify the length of the generated password
-./password-generator 64
+./password-generator 123
 ```
 
 ### With Docker

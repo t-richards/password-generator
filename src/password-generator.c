@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
   void *buf = NULL;
   int result = -1, retval = 0;
   ssize_t bytes_read = 0;
-  int password_length = 32;
+  int password_length = 64;
 
   if (argc >= 2) {
     password_length = atoi(argv[1]);

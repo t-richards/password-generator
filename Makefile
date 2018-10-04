@@ -11,7 +11,7 @@ clean:
 
 .PHONY: lint
 lint:
-	clang-format -i password-generator.c
+	clang-format -i src/password-generator.c
 
-password-generator: password-generator.c
-	$(CC) $(CFLAGS) -Wall -g -o password-generator password-generator.c
+password-generator: src/password-generator.c
+	$(CC) $(CFLAGS) -Wall -g -o password-generator src/password-generator.c
