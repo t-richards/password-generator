@@ -1,5 +1,9 @@
-Dockerfile
+# Meta
+.dockerignore
 .git
 .gitignore
+Dockerfile
 README.md
-.dockerignore
+
+# Binaries
+password-generator

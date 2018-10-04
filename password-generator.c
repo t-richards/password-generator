@@ -54,7 +54,7 @@ int main(void) {
   }
 
   // Get random data
-  bytes_read = getrandom(buf, password_length, GRND_RANDOM);
+  bytes_read = getrandom(buf, password_length, GRND_NONBLOCK);
   if (bytes_read == -1 || bytes_read < password_length) {
     fprintf(stderr, "Failed to read from random source: %s\n", strerror(errno));
     retval = 1;
@@ -64,7 +64,7 @@ int main(void) {
   // Happy path: print the password!
   result = printf("%s\n", wrap_printable(buf, password_length));
   if (result < 0) {
-    // Output error, no sense trying to print an error message
+    // There was an output error, no sense trying to print an error message
     retval = 1;
     goto cleanup;
   }
