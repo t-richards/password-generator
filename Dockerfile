@@ -1,8 +1,3 @@
-FROM debian:stable
+FROM alpine:edge
 
-RUN set -ex; \
- apt-get update; \
- apt-get install -y --no-install-recommends curl ca-certificates git gcc linux-libc-dev make; \
- rm -rf /var/lib/apt/lists/*; \
- rm -rf /usr/share/man/*; \
- rm -rf /usr/share/doc/*
+RUN apk add --update --no-cache git openssh-client binutils gcc make musl-dev libc-dev
