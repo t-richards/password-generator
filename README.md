@@ -41,8 +41,9 @@ docker run --rm -it trichards/password-generator
 ## Roadmap
 
  - [x] Draw random bytes from the system `getrandom` facility
- - [x] Memory page locking
- - [x] ASCII character output
- - [ ] Command-line flags
- - [ ] Multiple password generation
- - [ ] Security review
+ - [x] Lock memory pages from swapping
+ - [x] Explicitly wipe data from memory
+ - [x] Produce ASCII character output
+ - [ ] Implement a small number of command-line flags (e.g. password length, number of passwords)
+ - [ ] Generate multiple passwords
+ - [ ] Review everything for security
