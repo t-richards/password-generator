@@ -6,7 +6,7 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
-int should_show_usage(int argc, char *argv[]) {
+static int should_show_usage(int argc, char *argv[]) {
   for (int i = 0; i < argc; i++) {
     if (strncmp("--help", argv[i], 6) == 0) {
       return 1;
@@ -19,7 +19,7 @@ int should_show_usage(int argc, char *argv[]) {
   return 0;
 }
 
-void show_usage(int argc, char *argv[]) {
+static void show_usage(int argc, char *argv[]) {
   printf("Usage:  %s [password_length] [num_passwords]\n", argv[0]);
 }
 
@@ -82,16 +82,16 @@ int main(int argc, char *argv[]) {
       goto cleanup;
     }
 
-    /* Print password(s). */
-    /* Omit newline when generating a single password to a non-TTY output */
+    /* Print password */
     if (num_passwords == 1 && !isatty(fileno(stdout))) {
+      /* Omit newline when generating a single password to a non-TTY output */
       result = printf("%s", password);
     } else {
       result = puts(password);
     }
 
     if (result < 0) {
-      /* There was an output error, no sense trying to print an error message */
+      fprintf(stderr, "Failed writing to stdout: %s\n", strerror(errno));
       retval = 1;
       goto cleanup;
     }
