@@ -24,8 +24,10 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
 # Build program
 make
 
-# Usage:
-# ./password-generator [password_length] [num_passwords]
+# Show usage
+$ ./password-generator --help
+Usage: ./password-generator [password_length] [num_passwords]
+
 
 # Generate one 64-character password
 ./password-generator

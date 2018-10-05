@@ -6,17 +6,53 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
+int should_show_usage(int argc, char *argv[]) {
+  for (int i = 0; i < argc; i++) {
+    if (strncmp("--help", argv[i], 6) == 0) {
+      return 1;
+    }
+    if (strncmp("-h", argv[i], 2) == 0) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+void show_usage(int argc, char *argv[]) {
+  printf("Usage:  %s [password_length] [num_passwords]\n", argv[0]);
+}
+
 int main(int argc, char *argv[]) {
   char *password = NULL;
   int result = -1, retval = 0;
   int password_length = 64;
   int num_passwords = 1;
 
+  /* Check if -h or --help was specified */
+  if (should_show_usage(argc, argv)) {
+    show_usage(argc, argv);
+    goto cleanup;
+  }
+
+  /* Parse password length argument, if provided */
   if (argc >= 2) {
     password_length = atoi(argv[1]);
+    if (password_length <= 0) {
+      fprintf(stderr, "Password length must be greater than zero.\n");
+      retval = 1;
+      goto cleanup;
+    }
   }
+
+  /* Parse number of passwords argument, if provided */
   if (argc >= 3) {
     num_passwords = atoi(argv[2]);
+    if (num_passwords <= 0) {
+      fprintf(stderr, "Number of passwords to generate must be greater than zero.\n");
+      retval = 1;
+      goto cleanup;
+    }
   }
 
   /* Allocate memory */
