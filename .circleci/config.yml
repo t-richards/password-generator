@@ -8,6 +8,9 @@ jobs:
       - run:
           name: Compile application
           command: make dist
+      - run:
+          name: Run unit tests
+          command: make test
       - store_artifacts:
           path: password-generator
           destination: password-generator

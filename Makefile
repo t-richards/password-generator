@@ -8,10 +8,18 @@ dist: password-generator
 .PHONY: clean
 clean:
 	rm -f password-generator
+	rm -f test/password-generator-test
 
 .PHONY: lint
 lint:
-	clang-format -i src/*.{c,h}
+	clang-format -i src/*.{c,h} test/*.c
+
+.PHONY: test
+test: password-generator-test
+	test/password-generator-test
+
+password-generator-test: test/*.c
+	$(CC) $(CFLAGS) -lcheck -Wall -g -o test/password-generator-test src/password_generator.c test/password_generator_test.c
 
 password-generator: src/*.c src/*.h
 	$(CC) $(CFLAGS) -Wall -g -o password-generator src/password_generator.c src/main.c

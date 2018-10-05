@@ -49,7 +49,8 @@ int main(int argc, char *argv[]) {
   if (argc >= 3) {
     num_passwords = atoi(argv[2]);
     if (num_passwords <= 0) {
-      fprintf(stderr, "Number of passwords to generate must be greater than zero.\n");
+      fprintf(stderr,
+              "Number of passwords to generate must be greater than zero.\n");
       retval = 1;
       goto cleanup;
     }
