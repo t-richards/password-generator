@@ -8,19 +8,17 @@
  * Converts the bytes in buf to be printable ASCII characters
  * This is probably bad, needs review and tests
  */
-void wrap_printable(void *buf, int len) {
-  char *data = (char *)buf;
-
+void wrap_printable(char *buf, int len) {
   for (int i = 0; i < len; i++) {
     // Clamp to signed char
-    if (data[i] < CHAR_MIN) {
-      data[i] = CHAR_MIN;
-    } else if (data[i] > CHAR_MAX) {
-      data[i] = CHAR_MAX;
+    if (buf[i] < CHAR_MIN) {
+      buf[i] = CHAR_MIN;
+    } else if (buf[i] > CHAR_MAX) {
+      buf[i] = CHAR_MAX;
     }
 
     // Wrap the value around the '!' to '~' range
-    data[i] = (abs(data[i]) % (0x7E - 0x21 + 1)) + 0x21;
+    buf[i] = (abs(buf[i]) % (0x7E - 0x21 + 1)) + 0x21;
   }
 }
 
@@ -32,7 +30,7 @@ int generate_password(char *buf, int len) {
   ssize_t bytes_read;
 
   // Draw random bytes from system random facility
-  bytes_read = getrandom((void *)buf, len, GRND_NONBLOCK);
+  bytes_read = getrandom(buf, len, GRND_NONBLOCK);
   if (bytes_read == -1 || bytes_read < len) {
     return errno;
   }
