@@ -16,6 +16,7 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
 
  - You want your passwords to be "pronounceable" or "memorable"
  - You want a password generator with a GUI
+ - You prefer to login to your password manager before being able to generate passwords
  - You have an old kernel or C library without the `getrandom` call in it
 
 ## Getting started
