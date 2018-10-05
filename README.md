@@ -24,11 +24,14 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
 # Build program
 make
 
-# Generate a 64-character ASCII password
+# Usage:
+# ./password-generator [password_length] [num_passwords]
+
+# Generate one 64-character password
 ./password-generator
 
-# Specify the length of the generated password
-./password-generator 123
+# Generate 8 32-character passwords
+./password-generator 32 8
 ```
 
 ### With Docker
@@ -49,7 +52,7 @@ docker run --rm -it trichards/password-generator
  - [x] Produce ASCII character output
  - [ ] Implement a small number of command-line arguments (flags?)
    - [x] Password length
-   - [ ] Number of passwords?
+   - [x] Number of passwords
    - [ ] Others?
  - [ ] Add unit tests for important features
    - [ ] Random bytes -> ASCII conversion
