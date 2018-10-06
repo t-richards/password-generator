@@ -5,10 +5,11 @@
 #include <stdlib.h>
 
 START_TEST(test_wrap_printable) {
-  char *expected = "!ABABC";
-  char actual[6] = {0x00, 0x20, 0x21, 0x7E, 0x7F, 0x80};
+  char actual[9] = {0x00, 0x01, 0x20, 0x21, 0x7E, 0x7F, 0x80, 0xFE, 0xFF};
+  /* TODO(tom): is this correct? */
+  char *expected = "!\"ABABC#\"";
 
-  wrap_printable(actual, 6);
+  wrap_printable(actual, 9);
   ck_assert_str_eq(expected, actual);
 }
 END_TEST

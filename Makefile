@@ -19,7 +19,7 @@ test: password-generator-test
 	test/password-generator-test
 
 password-generator-test: test/*.c
-	$(CC) $(CFLAGS) -lcheck -Wall -g -o test/password-generator-test src/password_generator.c test/password_generator_test.c
+	$(CC) $(CFLAGS) -Wall -g -o test/password-generator-test src/password_generator.c test/password_generator_test.c -lcheck
 
 password-generator: src/*.c src/*.h
 	$(CC) $(CFLAGS) -Wall -g -o password-generator src/password_generator.c src/main.c
