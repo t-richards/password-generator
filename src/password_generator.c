@@ -9,16 +9,25 @@
  * This is probably bad, needs review and tests
  */
 void wrap_printable(char *buf, int len) {
+  char current = 0;
+
   for (int i = 0; i < len; i++) {
+    current = buf[i];
+
     // Clamp to signed char
-    if (buf[i] < CHAR_MIN) {
-      buf[i] = CHAR_MIN;
-    } else if (buf[i] > CHAR_MAX) {
-      buf[i] = CHAR_MAX;
+    if (current <= CHAR_MIN) {
+      current = CHAR_MIN + 1;
+    } else if (current > CHAR_MAX) {
+      current = CHAR_MAX;
+    }
+
+    // Flip negative numbers
+    if (current < 0) {
+      current = abs(current);
     }
 
     // Wrap the value around the '!' to '~' range
-    buf[i] = (abs(buf[i]) % (0x7E - 0x21 + 1)) + 0x21;
+    buf[i] = (current % (0x7E - 0x21 + 1)) + 0x21;
   }
 }
 

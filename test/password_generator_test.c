@@ -8,7 +8,7 @@ START_TEST(test_wrap_printable) {
   char actual[10] = {0x00, 0x01, 0x20, 0x21, 0x7E,
                      0x7F, 0x80, 0xFE, 0xFF, 0x00};
   /* TODO(tom): is this correct? */
-  char *expected = "!\"ABABC#\"";
+  char *expected = "!\"ABABB#\"";
 
   wrap_printable(actual, 9);
   ck_assert_str_eq(expected, actual);
