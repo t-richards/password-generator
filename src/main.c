@@ -23,8 +23,8 @@ static void show_usage(int argc, char *argv[]) {
   printf("Usage:  %s [password_length] [num_passwords]\n", argv[0]);
 }
 
-static int do_password_generation(char *password, int password_length,
-                                  int num_passwords) {
+static int generate_and_print(char *password, int password_length,
+                              int num_passwords) {
   int result = -1;
 
   /* Lock the heap-allocated buffer into memory */
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
   }
 
   /* Generate and print passwords */
-  retval = do_password_generation(password_buf, password_length, num_passwords);
+  retval = generate_and_print(password_buf, password_length, num_passwords);
 
   /* Cleanup */
   if (password_buf != NULL) {
