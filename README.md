@@ -29,7 +29,6 @@ make
 $ ./password-generator --help
 Usage: ./password-generator [password_length] [num_passwords]
 
-
 # Generate one 64-character password
 ./password-generator
 
