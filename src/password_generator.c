@@ -6,25 +6,14 @@
 
 /**
  * Converts the bytes in buf to be printable ASCII characters
- * This is probably bad, needs review and tests
+ * This needs tests
  */
 void wrap_printable(char *buf, int len) {
   char current = 0;
 
   for (int i = 0; i < len; i++) {
-    current = buf[i];
-
-    // Clamp to signed char
-    if (current <= CHAR_MIN) {
-      current = CHAR_MIN + 1;
-    } else if (current > CHAR_MAX) {
-      current = CHAR_MAX;
-    }
-
-    // Flip negative numbers
-    if (current < 0) {
-      current = abs(current);
-    }
+    // Zero out the most significant bit
+    current = buf[i] & 0x7F;
 
     // Wrap the value around the '!' to '~' range
     buf[i] = (current % (0x7E - 0x21 + 1)) + 0x21;
