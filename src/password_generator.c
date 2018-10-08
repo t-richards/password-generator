@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <sys/random.h>
+#include <sys/types.h>
 
 /**
  * Converts the bytes in buf to be printable ASCII characters
