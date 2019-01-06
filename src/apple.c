@@ -2,10 +2,17 @@
 
 #include <Security/Security.h>
 #include <string.h>
+#include <errno.h>
 
 /* compatibility with getrandom */
 ssize_t getrandom(void *buf, size_t buflen, unsigned int flags) {
-  return SecRandomCopyBytes(kSecRandomDefault, buflen, buf);
+  int result = SecRandomCopyBytes(kSecRandomDefault, buflen, buf);
+  if (result == -1) {
+    perror("Failed to copy bytes:");
+    return result;
+  }
+
+  return buflen;
 }
 
 /* compatibility with explicit_bzero */

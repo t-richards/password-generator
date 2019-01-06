@@ -4,3 +4,4 @@ test/password-generator-test
 
 # macOS
 *.dSYM
+*.xcodeproj
