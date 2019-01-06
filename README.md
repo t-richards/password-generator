@@ -57,6 +57,10 @@ docker run --rm -it trichards/password-generator
    - [x] Number of passwords
    - [ ] Others?
    - [ ] Flags?
+ - [ ] OS Support
+   - [x] GNU/Linux
+   - [?] macOS
+   - [ ] BSD
  - [ ] Add unit tests for important features
    - [x] Libcheck
    - [ ] Random bytes -> ASCII conversion

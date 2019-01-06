@@ -1,3 +1,6 @@
 # Binary
 password-generator
 test/password-generator-test
+
+# macOS
+*.dSYM

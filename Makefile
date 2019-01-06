@@ -1,3 +1,7 @@
+ifeq ($(shell uname),Darwin)
+	CFLAGS := $(CFLAGS) -framework Security
+endif
+
 .PHONY: all
 all: password-generator
 
@@ -19,7 +23,7 @@ test: password-generator-test
 	test/password-generator-test
 
 password-generator-test: test/*.c
-	$(CC) $(CFLAGS) -Wall -g -o test/password-generator-test src/password_generator.c test/password_generator_test.c -lcheck
+	$(CC) $(CFLAGS) -Wall -g -o test/password-generator-test src/*.c test/password_generator_test.c -lcheck
 
 password-generator: src/*.c src/*.h
-	$(CC) $(CFLAGS) -Wall -g -o password-generator src/password_generator.c src/main.c
+	$(CC) $(CFLAGS) -Wall -g -o password-generator src/*.c src/cli/main.c
