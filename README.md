@@ -59,7 +59,7 @@ docker run --rm -it trichards/password-generator
    - [ ] Flags?
  - [ ] OS Support
    - [x] GNU/Linux
-   - [?] macOS
+   - [x] macOS
    - [ ] BSD
  - [ ] Add unit tests for important features
    - [x] Libcheck
