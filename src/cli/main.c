@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
   }
 
   /* Allocate memory */
-  password_buf = calloc(1, password_length);
+  password_buf = calloc(1, password_length + 1);
   if (password_buf == NULL) {
     fprintf(stderr, "Failed to allocate memory: %s\n", strerror(errno));
     return 1;

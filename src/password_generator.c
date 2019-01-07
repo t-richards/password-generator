@@ -38,5 +38,8 @@ int generate_password(char *buf, int len) {
   /* Convert random bytes to printable ASCII */
   wrap_printable(buf, len);
 
+  /* Terminate with null byte */
+  buf[len] = '\0';
+
   return 0;
 }
