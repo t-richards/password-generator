@@ -1,8 +1,8 @@
 #ifdef __APPLE__
 
 #include <Security/Security.h>
-#include <string.h>
 #include <errno.h>
+#include <string.h>
 
 /* compatibility with getrandom */
 ssize_t getrandom(void *buf, size_t buflen, unsigned int flags) {
@@ -16,14 +16,9 @@ ssize_t getrandom(void *buf, size_t buflen, unsigned int flags) {
 }
 
 /* compatibility with explicit_bzero */
-__attribute__((weak)) void
-__explicit_bzero_hook(void *buf, size_t len)
-{
-}
+__attribute__((weak)) void __explicit_bzero_hook(void *buf, size_t len) {}
 
-void
-explicit_bzero(void *buf, size_t len)
-{
+void explicit_bzero(void *buf, size_t len) {
   memset(buf, 0, len);
   __explicit_bzero_hook(buf, len);
 }

@@ -1,5 +1,5 @@
-#include "../password_generator.h"
 #include "../apple.h"
+#include "../password_generator.h"
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
