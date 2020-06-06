@@ -2,6 +2,10 @@
 password-generator
 test/password-generator-test
 
+# Coverage
+*.gcda
+*.gcno
+
 # macOS
 *.dSYM
 *.xcodeproj
