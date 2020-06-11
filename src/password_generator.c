@@ -24,7 +24,7 @@ int generate_password(char *buf, int len) {
     }
 
     /* Reject the byte if it is not a printable ASCII character */
-    if (!isprint(current)) {
+    if (!isprint(current) || isspace(current)) {
       continue;
     }
 
