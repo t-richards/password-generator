@@ -32,7 +32,8 @@ static int generate_and_print(char *password, int password_length,
   /* This prevents the memory page from swapping to disk */
   result = mlock(password, password_length);
   if (result != 0) {
-    fprintf(stderr, "Failed to lock process memory: %s\n", strerror(errno));
+    int errno_sv = errno;
+    fprintf(stderr, "Failed to lock process memory: %s\n", strerror(errno_sv));
     return 1;
   }
 
@@ -54,7 +55,8 @@ static int generate_and_print(char *password, int password_length,
     }
 
     if (result < 0) {
-      fprintf(stderr, "Failed writing to stdout: %s\n", strerror(errno));
+      int errno_sv = errno;
+      fprintf(stderr, "Failed writing to stdout: %s\n", strerror(errno_sv));
       return 1;
     }
   }
@@ -96,7 +98,8 @@ int main(int argc, char *argv[]) {
   /* Allocate memory */
   password_buf = calloc(1, password_length + 1);
   if (password_buf == NULL) {
-    fprintf(stderr, "Failed to allocate memory: %s\n", strerror(errno));
+    int errno_sv = errno;
+    fprintf(stderr, "Failed to allocate memory: %s\n", strerror(errno_sv));
     return 1;
   }
 
