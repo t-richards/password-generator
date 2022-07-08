@@ -1,7 +1,11 @@
-FROM alpine:edge
-
+# Build
+FROM alpine:latest AS builder
 RUN apk add --update --no-cache git openssh-client binutils gcc make musl-dev libc-dev check-dev
-COPY . /app
-WORKDIR /app
-RUN make
+WORKDIR /src
+COPY . /src
+RUN make dist
+
+# Run
+FROM alpine:latest AS runner
+COPY --from=builder /src/password-generator /password-generator
 ENTRYPOINT ["./password-generator"]
