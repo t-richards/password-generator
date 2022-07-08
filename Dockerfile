@@ -8,4 +8,4 @@ RUN make dist
 # Run
 FROM alpine:latest AS runner
 COPY --from=builder /src/password-generator /password-generator
-ENTRYPOINT ["./password-generator"]
+ENTRYPOINT ["/password-generator"]
