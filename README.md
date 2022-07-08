@@ -17,7 +17,14 @@ A secure, sane-defaults password generator for Unix and GNU/Linux.
  - You prefer to login to your password manager before being able to generate passwords
  - You have an old kernel or C library without the `getrandom` call in it
 
-## Getting started
+## Getting started (Docker)
+
+```bash
+# Generate one 64-character password
+docker run --rm -it ghcr.io/t-richards/password-generator
+```
+
+## Getting started (build from source)
 
 ```bash
 # Build program
@@ -34,32 +41,6 @@ Usage: ./password-generator [password_length] [num_passwords]
 ./password-generator 32 8
 ```
 
-### With Docker
+## License
 
-```bash
-# Build image
-docker build -t trichards/password-generator .
-
-# Run program
-docker run --rm -it trichards/password-generator
-```
-
-## Roadmap
-
- - [x] Draw random bytes from the system `getrandom` facility
- - [x] Lock memory pages from swapping
- - [x] Explicitly wipe data from memory
- - [x] Produce ASCII character output
- - [ ] Implement a small number of command-line arguments
-   - [x] Password length
-   - [x] Number of passwords
-   - [ ] Others?
-   - [ ] Flags?
- - [ ] OS Support
-   - [x] GNU/Linux
-   - [x] macOS
-   - [ ] BSD
- - [ ] Add unit tests for important features
-   - [x] Libcheck
-   - [ ] Random bytes -> ASCII conversion
- - [ ] Review everything for security
+[MIT](./LICENSE).
