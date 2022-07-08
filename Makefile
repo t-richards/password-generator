@@ -20,7 +20,7 @@ clean:
 
 .PHONY: lint
 lint:
-	clang-format -i src/*.{c,h} src/cli/*.c test/*.c
+	clang-format -i **/*.{c,h}
 
 .PHONY: test
 test: password-generator-test

@@ -1,10 +1,24 @@
-name: Build and test
+name: App
 
 on:
   push:
     branches: ['master']
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install deps
+        run: apk add --no-cache --update clang-extra-tools
+
+      - name: Lint code
+        run: clang-format --dry-run --Werror **/*.c **/*.h
+
   test:
     runs-on: ubuntu-latest
     container: alpine:latest
@@ -14,10 +28,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install deps
-        run: apk add --update --no-cache git openssh-client binutils gcc make musl-dev libc-dev check-dev
+        run: apk add --no-cache --update binutils gcc make musl-dev libc-dev check-dev
 
       - name: Run tests
         run: make test
+
+      - name: Run app
+        run: |
+          make
+          ./password-generator
 
   build-and-push-image:
     runs-on: ubuntu-latest
