@@ -9,15 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     container: alpine:latest
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Install deps
-      run: apk add --update --no-cache git openssh-client binutils gcc make musl-dev libc-dev check-dev
+      - name: Install deps
+        run: apk add --update --no-cache git openssh-client binutils gcc make musl-dev libc-dev check-dev
 
-    - name: Run tests
-      run: make test
+      - name: Run tests
+        run: make test
 
   build-and-push-image:
     runs-on: ubuntu-latest
