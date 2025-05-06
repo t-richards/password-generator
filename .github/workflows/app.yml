@@ -5,6 +5,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     container: alpine:latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -19,6 +21,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container: alpine:latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
