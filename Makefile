@@ -1,5 +1,5 @@
 CFLAGS := $(CFLAGS) -Wall -g
-TEST_FLAGS := $(CFLAGS) -fprofile-arcs -ftest-coverage -lcheck
+TEST_FLAGS := -fprofile-arcs -ftest-coverage -lcheck -lrt -lm
 ifeq ($(shell uname),Darwin)
 	CFLAGS := $(CFLAGS) -framework Security
 endif
@@ -27,7 +27,7 @@ test: password-generator-test
 	test/password-generator-test
 
 password-generator-test: test/*.c
-	$(CC) $(TEST_FLAGS) -o test/password-generator-test src/*.c test/password_generator_test.c 
+	$(CC) $(CFLAGS) -o test/password-generator-test src/*.c test/password_generator_test.c $(TEST_FLAGS)
 
 password-generator: src/*.c src/*.h
 	$(CC) $(CFLAGS) -o password-generator src/*.c src/cli/main.c
