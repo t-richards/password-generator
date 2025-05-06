@@ -1,10 +1,32 @@
 #include "../src/password_generator.h"
 #include <check.h>
+#include <ctype.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-START_TEST(test_case_0) { ck_assert(1); }
+START_TEST(test_case_0) {
+  // Generate a password with default settings.
+  char buf[65] = {0};
+  int result = generate_password(buf, 64);
+
+  // Expect the password generation to succeed.
+  ck_assert_msg(result == 0, "Password generation failed: %d", result);
+  ck_assert_msg(buf[0] != '\0', "Password is empty");
+  ck_assert_msg(buf[64] == '\0', "Buffer is not null-terminated");
+
+  // Expect password to have the correct length.
+  ck_assert_msg(strlen(buf) == 64, "Password length is incorrect: %zu",
+                strlen(buf));
+
+  // Expect all characters to be printable, and not whitespace.
+  for (int i = 0; i < 64; i++) {
+    char c = buf[i];
+    ck_assert_msg(isprint(c), "Character is not printable: %c", c);
+    ck_assert_msg(!isspace(c), "Character is whitespace: %c", c);
+    ck_assert_msg(c != '\0', "Character is null: %c", c);
+  }
+}
 END_TEST
 
 Suite *password_generator_suite(void) {
