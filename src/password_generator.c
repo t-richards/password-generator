@@ -1,15 +1,14 @@
 #include "password_generator.h"
 #include "apple.h"
-#include <ctype.h>
 #include <errno.h>
-#include <limits.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/random.h>
-#include <sys/types.h>
 
 const int GEN_SUCCESS = 0;
 const int GEN_FAILURE = -1;
+
+const int EXCLAMATION = 0x21;
+const int TILDE = 0x7E;
 
 /**
  * Generates a password of length len into buf.
@@ -33,7 +32,7 @@ int generate_password(char *buf, int len) {
     }
 
     /* Reject values outside the printable ASCII range */
-    if (current < 0x21 || current > 0x7E) {
+    if (current < EXCLAMATION || current > TILDE) {
       continue;
     }
 
