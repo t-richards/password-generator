@@ -8,8 +8,8 @@
 #include <sys/random.h>
 #include <sys/types.h>
 
-/* Return value for failure */
-const int ERR_GENERATE = -1;
+const int GEN_SUCCESS = 0;
+const int GEN_FAILURE = -1;
 
 /**
  * Generates a password of length len into buf.
@@ -21,15 +21,15 @@ int generate_password(char *buf, int len) {
 
   if (len <= 0 || buf == NULL) {
     errno = EINVAL;
-    return ERR_GENERATE;
+    return GEN_FAILURE;
   }
 
   while (have < len) {
     /* Draw a random byte from system random facility */
-    unsigned char current = '\0';
+    unsigned char current = 0;
     ssize_t bytes_read = getrandom(&current, 1, GRND_RANDOM);
     if (bytes_read != 1) {
-      return ERR_GENERATE;
+      return GEN_FAILURE;
     }
 
     /* Reject values outside the printable ASCII range */
@@ -42,7 +42,7 @@ int generate_password(char *buf, int len) {
   }
 
   /* Terminate with null byte */
-  buf[len] = '\0';
+  buf[len] = 0;
 
-  return 0;
+  return GEN_SUCCESS;
 }

@@ -31,10 +31,24 @@ jobs:
       - name: Install deps
         run: apk add --no-cache --update binutils gcc make musl-dev libc-dev check-dev
 
-      - name: Run tests
-        run: make test
+      - name: Build and run tests
+        run: make all test
 
       - name: Run app
-        run: |
-          make
-          ./password-generator
+        run: ./password-generator
+
+  scan:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: apk add --no-cache --update binutils clang-analyzer gcc make musl-dev libc-dev check-dev
+
+      - name: Scan build with clang
+        run: scan-build make
