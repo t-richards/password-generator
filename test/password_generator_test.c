@@ -5,13 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-START_TEST(test_case_0) {
+START_TEST(default_settings) {
   // Generate a password with default settings.
   char buf[65] = {0};
   int result = generate_password(buf, 64);
 
   // Expect the password generation to succeed.
-  ck_assert_msg(result == 0, "Password generation failed: %d", result);
+  ck_assert_msg(result == 0, "Expected generate success, got: %d", result);
   ck_assert_msg(buf[0] != '\0', "Password is empty");
   ck_assert_msg(buf[64] == '\0', "Buffer is not null-terminated");
 
@@ -29,6 +29,25 @@ START_TEST(test_case_0) {
 }
 END_TEST
 
+START_TEST(invalid_length) {
+  // Test invalid length for password generation.
+  char buf[65] = {0};
+  int result = generate_password(buf, -1);
+
+  // Expect the password generation to fail.
+  ck_assert_msg(result == -1, "Expected generate failure, got: %d", result);
+}
+
+START_TEST(invalid_buffer) {
+  // Test invalid buffer for password generation.
+  char *buf = NULL;
+  int result = generate_password(buf, 64);
+
+  // Expect the password generation to fail.
+  ck_assert_msg(result == -1, "Expected generate failure, got: %d", result);
+}
+END_TEST
+
 Suite *password_generator_suite(void) {
   Suite *s;
   TCase *tc_core;
@@ -38,7 +57,9 @@ Suite *password_generator_suite(void) {
   /* Core test case */
   tc_core = tcase_create("Core");
 
-  tcase_add_test(tc_core, test_case_0);
+  tcase_add_test(tc_core, default_settings);
+  tcase_add_test(tc_core, invalid_length);
+  tcase_add_test(tc_core, invalid_buffer);
   suite_add_tcase(s, tc_core);
 
   return s;

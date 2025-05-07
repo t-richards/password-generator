@@ -28,9 +28,8 @@ static int generate_and_print(char *password, int password_length,
                               int num_passwords) {
   int result = -1;
 
-  /* Lock the heap-allocated buffer into memory */
-  /* This prevents the memory page from swapping to disk */
-  result = mlock(password, password_length);
+  /* Prevent process memory from swapping to disk */
+  result = mlockall(MCL_CURRENT | MCL_FUTURE);
   if (result != 0) {
     int errno_sv = errno;
     fprintf(stderr, "Failed to lock process memory: %s\n", strerror(errno_sv));
