@@ -35,7 +35,7 @@ START_TEST(invalid_length) {
   int result = generate_password(buf, -1);
 
   // Expect the password generation to fail.
-  ck_assert_msg(result == -1, "Expected generate failure, got: %d", result);
+  ck_assert_msg(result < 0, "Expected generate failure, got: %d", result);
 }
 
 START_TEST(invalid_buffer) {
@@ -44,7 +44,7 @@ START_TEST(invalid_buffer) {
   int result = generate_password(buf, 64);
 
   // Expect the password generation to fail.
-  ck_assert_msg(result == -1, "Expected generate failure, got: %d", result);
+  ck_assert_msg(result < 0, "Expected generate failure, got: %d", result);
 }
 END_TEST
 

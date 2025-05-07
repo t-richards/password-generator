@@ -20,19 +20,20 @@ int generate_password(char *buf, int len) {
   int have = 0;
 
   if (len <= 0 || buf == NULL) {
+    errno = EINVAL;
     return ERR_GENERATE;
   }
 
   while (have < len) {
     /* Draw a random byte from system random facility */
-    char current = '\0';
+    unsigned char current = '\0';
     ssize_t bytes_read = getrandom(&current, 1, GRND_RANDOM);
     if (bytes_read != 1) {
       return ERR_GENERATE;
     }
 
-    /* Reject the byte if it is not a printable ASCII character */
-    if (!isprint(current) || isspace(current)) {
+    /* Reject values outside the printable ASCII range */
+    if (current < 0x21 || current > 0x7E) {
       continue;
     }
 

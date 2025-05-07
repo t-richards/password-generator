@@ -30,10 +30,10 @@ static int generate_and_print(char *password, int password_length,
 
   /* Prevent process memory from swapping to disk */
   result = mlockall(MCL_CURRENT | MCL_FUTURE);
-  if (result != 0) {
+  if (result < 0) {
     int errno_sv = errno;
     fprintf(stderr, "Failed to lock process memory: %s\n", strerror(errno_sv));
-    return 1;
+    return EXIT_FAILURE;
   }
 
   /* Happy path: generate and print the password(s)! */
@@ -41,8 +41,9 @@ static int generate_and_print(char *password, int password_length,
     /* Generate password */
     result = generate_password(password, password_length);
     if (result < 0) {
-      fprintf(stderr, "Failed to generate password: %s\n", strerror(result));
-      return 1;
+      int errno_sv = errno;
+      fprintf(stderr, "Failed to generate password: %s\n", strerror(errno_sv));
+      return EXIT_FAILURE;
     }
 
     /* Print password */
@@ -56,11 +57,11 @@ static int generate_and_print(char *password, int password_length,
     if (result < 0) {
       int errno_sv = errno;
       fprintf(stderr, "Failed writing to stdout: %s\n", strerror(errno_sv));
-      return 1;
+      return EXIT_FAILURE;
     }
   }
 
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 int main(int argc, char *argv[]) {
@@ -72,7 +73,7 @@ int main(int argc, char *argv[]) {
   /* Check if -h or --help was specified */
   if (should_show_usage(argc, argv)) {
     show_usage(argc, argv);
-    return 0;
+    return EXIT_SUCCESS;
   }
 
   /* Parse password length argument, if provided */
@@ -80,7 +81,7 @@ int main(int argc, char *argv[]) {
     password_length = atoi(argv[1]);
     if (password_length <= 0) {
       fprintf(stderr, "Password length must be greater than zero.\n");
-      return 1;
+      return EXIT_FAILURE;
     }
   }
 
@@ -90,7 +91,7 @@ int main(int argc, char *argv[]) {
     if (num_passwords <= 0) {
       fprintf(stderr,
               "Number of passwords to generate must be greater than zero.\n");
-      return 1;
+      return EXIT_FAILURE;
     }
   }
 
@@ -99,7 +100,7 @@ int main(int argc, char *argv[]) {
   if (password_buf == NULL) {
     int errno_sv = errno;
     fprintf(stderr, "Failed to allocate memory: %s\n", strerror(errno_sv));
-    return 1;
+    return EXIT_FAILURE;
   }
 
   /* Generate and print passwords */
