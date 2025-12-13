@@ -1,5 +1,7 @@
 # Build
 FROM alpine:latest AS builder
+# Workaround for https://gitlab.com/qemu-project/qemu/-/issues/2825
+RUN apk upgrade --no-cache --scripts=no apk-tools
 RUN apk add --update --no-cache git openssh-client binutils gcc make musl-dev libc-dev check-dev
 ENV CFLAGS="-static -no-pie -O2 -pipe -fstack-protector-strong -fno-plt"
 ENV CPPFLAGS="-D_FORTIFY_SOURCE=2"
